@@ -1,0 +1,16 @@
+.log
+.gradle
+.project
+.idea
+.DS_Store
+
+log
+bin
+out
+class
+build
+target
+
+*.iml
+*.zip
+*.tar.gz
