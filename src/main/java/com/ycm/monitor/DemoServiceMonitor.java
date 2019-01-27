@@ -14,19 +14,26 @@ public class DemoServiceMonitor {
 
     @Before(value = "execution(* com.ycm.service.*Service*.*(..))")
     public void logServiceMessage2(JoinPoint joinPoint) {
-        String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
-        String methodName = joinPoint.getSignature().getName();
-        Object[] arguments = joinPoint.getArgs();
-        System.out.println("[BEFORE-" + className + "." + methodName + "()]\t\t"
-                            + Arrays.toString(arguments));
+        System.out.println("[BEFORE]\t" + getJoinPointInfo(joinPoint,true));
     }
 
     @AfterReturning(value = "execution(* com.ycm.service.*Service*.*(..))", returning = "returnValue")
     public void logServiceMessage(JoinPoint joinPoint, Object returnValue) {
-        String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
-        String methodName = joinPoint.getSignature().getName();
-        System.out.println("[AFTER-" + className + "." + methodName + "()]\t\t"
-                            + returnValue);
+        System.out.println("[AFTER ]\t" + getJoinPointInfo(joinPoint,false)
+                            + "\t" + returnValue);
     }
 
+    private String getJoinPointInfo(JoinPoint joinPoint, boolean includeArguments) {
+        StringBuilder sb = new StringBuilder();
+        String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
+        String methodName = joinPoint.getSignature().getName();
+        Object[] arguments = joinPoint.getArgs();
+        sb.append(className);
+        sb.append('.');
+        sb.append(methodName);
+        sb.append('(');
+        if (includeArguments) sb.append(Arrays.toString(arguments));
+        sb.append(')');
+        return sb.toString();
+    }
 }
