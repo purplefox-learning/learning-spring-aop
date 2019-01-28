@@ -22,6 +22,8 @@ version = artifactVersion
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
+
+//to enable spring auto dependency management plugin, uncomment this line
 apply plugin: "io.spring.dependency-management"
 
 sourceCompatibility = 1.8
